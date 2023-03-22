@@ -77,23 +77,28 @@ export class CdkStack extends cdk.Stack {
       priceClass: cdk.aws_cloudfront.PriceClass.PRICE_CLASS_100,
       defaultBehavior: {
         origin: origin,
+        cachePolicy: cdk.aws_cloudfront.CachePolicy.CACHING_DISABLED,
         viewerProtocolPolicy: cdk.aws_cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        responseHeadersPolicy: cdk.aws_cloudfront.ResponseHeadersPolicy.SECURITY_HEADERS,
       },
       domainNames: [this.domainName, `*.${this.domainName}`],
       certificate: this.certificate,
       sslSupportMethod: cdk.aws_cloudfront.SSLMethod.SNI,
     })
-    // add behaviours for each bucket
+    // add behaviors for each bucket
 
     createdBuckets.filter(x => !x.isDefaultBehavior).forEach((app) => {
       if (app.bucket == undefined) throw new Error("Bucket is undefined.");
       if (app.pathPattern == undefined) throw new Error("Path pattern is undefined.");
       const origin = new cdk.aws_cloudfront_origins.S3Origin(app.bucket);
+
       // caching static assets 
-      distribution.addBehavior(`${app.origin}/assets/*`, origin, {
-        viewerProtocolPolicy: cdk.aws_cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-        responseHeadersPolicy: cdk.aws_cloudfront.ResponseHeadersPolicy.SECURITY_HEADERS,
-      })
+      // remove for demo purposes
+      // distribution.addBehavior(`${app.origin}/assets/*`, origin, {
+      //   cachePolicy: cdk.aws_cloudfront.CachePolicy.CACHING_DISABLED,
+      //   viewerProtocolPolicy: cdk.aws_cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      //   responseHeadersPolicy: cdk.aws_cloudfront.ResponseHeadersPolicy.SECURITY_HEADERS,
+      // })
 
       // disabled caching for index.html
       distribution.addBehavior(app.pathPattern, origin, {

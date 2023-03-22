@@ -8,16 +8,16 @@ export const WebApps: WebAppBucket[] = [
         bucket: null,
     },
     {
+        name: 'movies',
+        origin: 'movies',
+        bucket: null,
+        pathPattern: 'movies/*',
+    },
+    {
         name: 'dashboard',
         origin: 'dashboard',
         pathPattern: '/*',
         bucket: null,
         isDefaultBehavior: true,
-    },
-    {
-        name: 'movies',
-        origin: 'movies',
-        bucket: null,
-        pathPattern: 'movies/*',
     },
 ];

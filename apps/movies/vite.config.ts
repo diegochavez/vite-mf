@@ -6,6 +6,7 @@ import pkg from './package.json';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/movies/',
   build: {
     target: 'esnext'
   },
@@ -14,7 +15,7 @@ export default defineConfig({
     federation({
       name: 'dashboard-app',
       remotes: {
-        "remote-header": "http://127.0.0.1:8080/assets/remoteEntry.js",
+        "remote-header": "https://pline.dev/header/assets/remoteEntry.js",
       },
       shared: {
         react: {

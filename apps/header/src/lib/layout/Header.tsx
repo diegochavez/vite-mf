@@ -24,10 +24,11 @@ const Links = [
   {
     label: "Home",
     href: "/",
+    external: true,
   },
   {
     label: "Movies",
-    href: "/movies",
+    href: "/movies/",
     external: true,
   },
 ];

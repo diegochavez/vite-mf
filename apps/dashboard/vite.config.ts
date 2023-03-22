@@ -14,7 +14,10 @@ export default defineConfig({
     federation({
       name: 'dashboard-app',
       remotes: {
-        "remote-header": "http://127.0.0.1:8080/assets/remoteEntry.js",
+        "remote-header": {
+          external: `new Promise((resolve) => { resolve(window.remoteHeader) }).then((m) => m)`,
+          externalType: 'promise',
+        },
       },
       shared: {
         react: {

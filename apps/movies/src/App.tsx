@@ -7,7 +7,7 @@ import { theme } from "lib/styles/theme";
 
 const App = () => (
   <ChakraProvider theme={theme}>
-    <Router>
+    <Router basename="/movies">
       <Layout>
         <Routings />
       </Layout>
